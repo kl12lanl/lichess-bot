@@ -4,7 +4,7 @@ url: "https://lichess.org/"        # Lichess base URL.
 engine:                            # Engine settings.
   dir: "./engines/"                # Directory containing the engine. This can be an absolute path or one relative to lichess-bot/.
   name: "stockfish"              # Binary name of the engine to use.
-    protocol: "uci"                     # When enabled, log all startup communication with the engine.
+  protocol: "uci"                     # When enabled, log all startup communication with the engine.
 # interpreter: "java"
 # interpreter_options:
 #   - "-jar"
