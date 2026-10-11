@@ -1,0 +1,27 @@
+name: LichessBot
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+        
+    - name: Run Bot Engine
+      run: |
+        echo "=== НАСТРАИВАЕМ ПРАВА ДЛЯ ДВИЖКА ==="
+        if [ -d "engines" ]; then chmod -R +x engines/; fi
+        
+        echo "=== СТАРТ ШАХМАТНОГО БОТА ==="
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        
+        python lichess-bot.py
+      env:
+        LICHESS_BOT_TOKEN: ${{ secrets.LICHESS_BOT_TOKEN }}
