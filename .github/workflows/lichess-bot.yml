@@ -16,20 +16,13 @@ jobs:
         
     - name: Run Bot Engine
       run: |
-        echo "=== СОЗДАЕМ ПАПКУ ДЛЯ ДВИЖКА ==="
+        echo "=== УСТАНАВЛИВАЕМ СТОКФИШ ИЗ РЕПОЗИТОРИЯ LINUX ==="
+        sudo apt update && sudo apt install -y stockfish
+        
+        echo "=== СОЗДАЕМ ПАПКУ И КОПИРУЕМ ТУДА ДВИЖОК ==="
         mkdir -p engines
-        
-        echo "=== СКАЧИВАЕМ НАСТОЯЩИЙ STOCKFISH ДЛЯ LINUX ==="
-        # Скачиваем официальный стабильный Stockfish 16.1
-        curl -L -o stockfish.tar.xz https://github.com
-        
-        echo "=== РАСПАКОВЫВАЕМ И ПЕРЕИМЕНОВЫВАЕМ ==="
-        tar -xf stockfish.tar.xz
-        # Переносим исполняемый файл движка строго в папку engines под именем stockfish
-        cp stockfish/stockfish-ubuntu-x86-64 engines/stockfish
-        
-        echo "=== НАСТРАИВАЕМ ПРАВА НА ЗАПУСК ==="
-        chmod +x engines/stockfish
+        cp /usr/games/stockfish ./engines/stockfish
+        chmod +x ./engines/stockfish
         
         echo "=== СТАРТ ШАХМАТНОГО БОТА ==="
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
